@@ -8,5 +8,7 @@ namespace ToDoAPI.Services
         void AddToDo(ToDo ToDO);
 
         List<ToDo> GetAllToDo();
+
+        void DeleteToDo(int id);
     }
 }

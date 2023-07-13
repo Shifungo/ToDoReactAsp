@@ -1,8 +1,36 @@
 .titulo{
-    color: blue;
+    color: rgb(117, 117, 170);
+    height: 80%;
+    font-size: 2rem;
+    font-weight: 700;
 }
 
 .box{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-radius: 20px;
+    margin: 20px;
     width: 20rem;
-    background-color: rgb(98, 46, 46);
+    background-color: rgb(98, 90, 90);
+}
+.btns{
+    display: flex;
+    flex-direction: row;
+}
+.confirmBtn{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    justify-content: space-between;
+}
+.confirmDeleteBtn{
+    height: 50%;
+    width: 3rem;
+}
+.yesDeleteBtn{
+    background-color: green;
+}
+.noDeleteBtn{
+    background-color: red;
 }

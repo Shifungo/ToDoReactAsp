@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using ToDoAPI.Models;
 using ToDoAPI.Services;
 
@@ -27,6 +26,14 @@ namespace ToDoAPI.Controllers
         public List<ToDo> GetAll()
         {
             return _toDoServices.GetAllToDo(); 
+        }
+        [HttpDelete("/api/ToDo/{id}")] 
+        public IActionResult Delete (int id)
+
+        {
+            Console.WriteLine("teste");
+            _toDoServices.DeleteToDo(id);
+            return Ok();
         }
     }
 }

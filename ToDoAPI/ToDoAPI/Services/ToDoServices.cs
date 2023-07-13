@@ -20,8 +20,18 @@ namespace ToDoAPI.Services
         public List<ToDo> GetAllToDo()
         {
            return _toDoSet.Select(x => x).ToList();
-
-            
         } 
+        public void DeleteToDo(int id)
+        {
+            var todo = _toDoSet.Where(t => t.TodoId == id).FirstOrDefault();
+
+            if (todo != null)
+            {
+                _toDoSet.Remove(todo); _todoContext.SaveChanges();
+
+            }
+
+
+        }
     }
 }
