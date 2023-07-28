@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.EntityFrameworkCore;
 using ToDoAPI.Models;
 
 namespace ToDoAPI.Services 
@@ -32,6 +34,25 @@ namespace ToDoAPI.Services
             }
 
 
+        }
+        public void PutTodo(int id)
+        {
+           var todoChange = _toDoSet.Where(t => t.TodoId == id).FirstOrDefault<ToDo>();
+            if (todoChange != null)
+            {
+                if(todoChange.IsDone == false)
+                {
+                    todoChange.IsDone = true;
+                    _todoContext.SaveChanges();
+                }
+                else
+                {
+                    todoChange.IsDone= false;
+                    _todoContext.SaveChanges();
+                }
+                
+            }
+            
         }
     }
 }

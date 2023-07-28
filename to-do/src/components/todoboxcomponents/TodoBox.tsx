@@ -6,6 +6,7 @@ import { type } from "os";
 interface ToDo {
   tarefa: string;
   todoId: number;
+  isDone: boolean;
 }
 interface Props {
   key: number;
@@ -60,6 +61,27 @@ function TodoBox(props: Props) {
     </div>
   );
 
+  function handleDoneBtn() {
+    console.log(toDoB);
+    console.log(toDoB.tarefa, toDoB);
+    let key = toDoB.todoId;
+    toDoB.isDone = !toDoB.isDone;
+    fetch("https://localhost:7293/api/ToDo/" + key, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(toDoB),
+    })
+      .then((response) => {
+        console.log(response);
+        props.addToDo((prev) => !prev);
+      })
+      .catch((error) => {
+        console.error("erro ao tentar deletar tarefa", error);
+      });
+  }
+
   return (
     <div className={classes.box}>
       <div className={classes.btns}>
@@ -72,7 +94,7 @@ function TodoBox(props: Props) {
         <p className={classes.titulo}>{toDoB.tarefa}</p>
       </div>
       <div className={classes.btns}>
-        <button>
+        <button onClick={handleDoneBtn}>
           <span>&gt;</span>
         </button>
       </div>

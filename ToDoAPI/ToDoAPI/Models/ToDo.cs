@@ -10,6 +10,8 @@ namespace ToDoAPI.Models
         public string Tarefa { get; set; }
         [Key]
         public int TodoId { get; set; }
+
+        public bool IsDone { get; set; }
     }
 #pragma warning restore
 }

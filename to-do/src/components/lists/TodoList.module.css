@@ -1,7 +1,8 @@
 .todoList{
     display: flex;
-    flex-direction: column;
-    width: 50%;
+    flex-direction: row;
+    margin: 20px;
+    justify-content: space-between;
 
 }
 .addBtn{
@@ -36,4 +37,16 @@
     background-color: transparent;
     border: none;
     outline: none;
+}
+.doesAndDones{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    background-color:rgb(137, 98, 98);
+}
+.donesAndDoes{
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+    background-color: rgb(52, 43, 43);
 }

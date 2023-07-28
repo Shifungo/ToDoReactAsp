@@ -31,9 +31,14 @@ namespace ToDoAPI.Controllers
         public IActionResult Delete (int id)
 
         {
-            Console.WriteLine("teste");
             _toDoServices.DeleteToDo(id);
             return Ok();
+        }
+        [HttpPut("/api/ToDo/{id}")]
+        public IActionResult Put(int id) 
+        {
+            _toDoServices.PutTodo(id);
+            return Ok(id);
         }
     }
 }

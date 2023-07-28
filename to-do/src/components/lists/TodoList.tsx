@@ -5,12 +5,14 @@ import classes from "./TodoList.module.css";
 interface ToDo {
   tarefa: string;
   todoId: number;
+  isDone: boolean;
 }
 
 function TodoList() {
   const [addToDo, setAddToDo] = useState<boolean>(false);
   const [toDos, setToDos] = useState<ToDo[]>([]);
   const [toDoL, setToDoL] = useState<JSX.Element[]>([]);
+  const [doneL, setDoneL] = useState<JSX.Element[]>([]);
   const [formData, setFormData] = useState("");
 
   //adding drag and drop
@@ -37,7 +39,7 @@ function TodoList() {
   //end of drag and drop
 
   if (toDos === undefined) {
-    setToDos([{ tarefa: "", todoId: 0 }]);
+    setToDos([{ tarefa: "", todoId: 0, isDone: false }]);
   }
 
   useEffect(() => {
@@ -46,20 +48,34 @@ function TodoList() {
       .then((data) => {
         if (data !== undefined && data.length > 0) {
           setToDos(data);
-          const todoLfill = data.map((toDo: ToDo) => (
+          console.log(data);
+          const dones = data.filter((toDo: ToDo) => toDo.isDone);
+          const notDones = data.filter((toDo: ToDo) => !toDo.isDone);
+
+          const todoLfill = notDones.map((toDo: ToDo) => (
             <li key={toDo.todoId}>
               <TodoBox addToDo={setAddToDo} key={toDo.todoId} toDo={toDo} />
             </li>
           ));
+
+          console.log(dones);
+          const doneLfill = dones.map((toDo: ToDo) => (
+            <li key={toDo.todoId}>
+              <TodoBox addToDo={setAddToDo} key={toDo.todoId} toDo={toDo} />
+            </li>
+          ));
+          setDoneL(doneLfill);
           setToDoL(todoLfill);
         } else {
-          setToDos([{ tarefa: "", todoId: 0 }]);
+          setToDos([{ tarefa: "", todoId: 0, isDone: false }]);
         }
       })
       .catch((error) => {
         console.error("erro ao tentar carregar tarefas", error);
-        setToDos([{ tarefa: "", todoId: 0 }]);
+        setToDos([{ tarefa: "", todoId: 0, isDone: false }]);
       });
+
+    //separete the to-do and done lists
   }, [addToDo]);
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -110,18 +126,24 @@ function TodoList() {
 
   return (
     <div className={classes.todoList}>
-      <div>
-        <h2>To-Dos</h2>
-      </div>
-      <ul>{toDoL}</ul>
-      <div className={classes.addBtnDiv}>
-        {addToDo ? null : (
-          <button className={classes.addBtn} onClick={addToDoHandler}>
-            +
-          </button>
-        )}
+      <div className={classes.doesAndDones}>
+        <div>
+          <h2>To-Dos</h2>
+        </div>
+        <ul>{toDoL}</ul>
+        <div className={classes.addBtnDiv}>
+          {addToDo ? null : (
+            <button className={classes.addBtn} onClick={addToDoHandler}>
+              +
+            </button>
+          )}
 
-        {addToDo ? formDiv : null}
+          {addToDo ? formDiv : null}
+        </div>
+      </div>
+      <div className={classes.donesAndDoes}>
+        <h2>Dones</h2>
+        <ul>{doneL}</ul>
       </div>
     </div>
   );
